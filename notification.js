@@ -1,28 +1,36 @@
 (function () {
   console.log("Notification script loaded");
 
-  // Function to display a popup notification
-  function showNotification(message) {
-    const notification = document.createElement("div");
-    notification.style.position = "fixed";
-    notification.style.bottom = "20px";
-    notification.style.right = "20px";
-    notification.style.backgroundColor = "#4CAF50";
-    notification.style.color = "white";
-    notification.style.padding = "15px";
-    notification.style.borderRadius = "5px";
-    notification.style.boxShadow = "0 2px 10px rgba(0, 0, 0, 0.3)";
-    notification.style.zIndex = "10000";
-    notification.innerText = message;
-
-    document.body.appendChild(notification);
-
-    // Auto-remove the notification after 3 seconds
-    setTimeout(() => {
-      notification.remove();
-    }, 3000);
+  // Dynamically load the Toastr library
+  function loadToastrLibrary() {
+    const toastrScript = document.createElement("script");
+    toastrScript.src =
+      "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js";
+    toastrScript.onload = function () {
+      console.log("Toastr library loaded!");
+      // After loading the script, load the CSS for Toastr
+      const toastrCSS = document.createElement("link");
+      toastrCSS.rel = "stylesheet";
+      toastrCSS.href =
+        "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css";
+      document.head.appendChild(toastrCSS);
+    };
+    document.head.appendChild(toastrScript);
   }
 
-  // Fetch notification configuration from your server
-  showNotification("hello");
+  // Call the function to load Toastr
+  loadToastrLibrary();
+
+  // Expose a global function to show Toastr notification
+  window.showNotification = function (message) {
+    if (typeof toastr !== "undefined") {
+      toastr.success(message, "Notification", {
+        positionClass: "toast-top-right", // Position of the toast
+        timeOut: 3000, // Time before auto-close
+      });
+    } else {
+      console.log("Toastr library is not loaded yet.");
+    }
+  };
+  showNotification("HELLO WORLDDD!!");
 })();
