@@ -4,15 +4,13 @@
   // Dynamically load the Toastr library
   function loadToastrLibrary() {
     const toastrScript = document.createElement("script");
-    toastrScript.src =
-      "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js";
+    toastrScript.src = "https://cdn.jsdelivr.net/npm/notyf@3.4.0/notyf.min.js";
     toastrScript.onload = function () {
       console.log("Toastr library loaded!");
       // After loading the script, load the CSS for Toastr
       const toastrCSS = document.createElement("link");
       toastrCSS.rel = "stylesheet";
-      toastrCSS.href =
-        "https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css";
+      toastrCSS.href = "https://cdn.jsdelivr.net/npm/notyf@3.4.0/notyf.min.css";
       document.head.appendChild(toastrCSS);
     };
     document.head.appendChild(toastrScript);
